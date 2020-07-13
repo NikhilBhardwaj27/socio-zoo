@@ -1,0 +1,51 @@
+.wrapper {
+    background: linear-gradient(135deg, #329fff 1%, #8c00ff 100%);
+    height: 100vh;
+    text-align: center;
+    width: 100%;
+}
+.inner-wrapper {
+    padding: 10%;
+}
+.heading1 {
+    font-size:100px;
+    color:#fff;
+}
+.heading2 {
+    color:#fff;
+    margin-top: 40px;
+}
+
+.sign_up{
+    background-color: #fff;
+    padding:10px;
+    color:#8c00ff;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 2%;
+}
+
+.login {
+
+    background-color: #fff;
+    padding:10px;
+    color:#8c00ff;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 2%;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .heading1{
+        font-size: 50px;
+    }
+    .heading2{
+        font-size: 14px;
+    }
+    .inner-wrapper{
+        padding-top:30%;
+    }
+  }
