@@ -24,6 +24,8 @@ export const profileReducer = (state = initialState, action) => {
   switch (type) {
     case GET_PROFILE_REQUEST:
     case GET_PROFILES_REQUEST:
+    case FOLLOW_REQUEST:
+    case UNFOLLOW_REQUEST:
       return {
         ...state,
         loading: true,
