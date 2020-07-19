@@ -18,6 +18,7 @@ const Following = ({ following, handleFollowingButton }) => {
       <Modal
         title="Following"
         visible={visible}
+        bodyStyle={modalStyle}
         onOk={handleOk}
         onCancel={handleCancel}
       >
@@ -31,5 +32,11 @@ const Following = ({ following, handleFollowingButton }) => {
     </div>
   );
 };
+
+const modalStyle = {
+  height: "40vh",
+  overflowY: "auto",
+};
+
 
 export default Following;

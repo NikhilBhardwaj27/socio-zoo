@@ -17,7 +17,8 @@ const Followers = ({ followers, handleFollowersButton }) => {
     <div>
       <Modal
         title="Followers"
-        visible={visible}
+        visible={visible}      
+        bodyStyle={modalStyle}
         onOk={handleOk}
         onCancel={handleCancel}
       >
@@ -30,6 +31,12 @@ const Followers = ({ followers, handleFollowersButton }) => {
       </Modal>
     </div>
   );
+};
+
+
+const modalStyle = {
+  height: "40vh",
+  overflowY: "auto",
 };
 
 export default Followers;
