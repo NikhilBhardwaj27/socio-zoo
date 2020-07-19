@@ -14,9 +14,10 @@ import { connect } from "react-redux";
 import { setMessage } from "../../redux/actions/message";
 import Fade from "react-reveal/Fade";
 import { registerRequest } from "../../redux/actions/auth";
-import { REMOVE_MESSAGE } from "../../redux/actions/types";
+import Loading from "../others/Loading";
 
 const Register = (props) => {
+  const { loading, isAuthenticated } = props.auth;
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -30,7 +31,7 @@ const Register = (props) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onFinish = async () => {
+  const onFinish = () => {
     if (password !== password2) {
       props.message("Password do not match", "error");
     } else {
@@ -38,10 +39,13 @@ const Register = (props) => {
     }
   };
 
-  if (props.state) {
+  if (isAuthenticated) {
     return <Redirect to="/home-screen"></Redirect>;
   }
-  return (
+
+  return loading ? (
+    <Loading></Loading>
+  ) : (
     <div className="parent-register">
       <div className="child-register">
         <Fade left>
@@ -55,6 +59,7 @@ const Register = (props) => {
             title="Socio-Zoo"
             hoverable={true}
             bordered
+            style={{ padding: "20px" }}
             extra={
               <Link to="/">
                 <RocketTwoTone
@@ -169,16 +174,13 @@ const Register = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return { state: state.auth.isAuthenticated };
+  return { auth: state.auth };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     message: (text, messageType) => {
       dispatch(setMessage(text, messageType));
-      setTimeout(() => {
-        dispatch({ type: REMOVE_MESSAGE });
-      }, 3000);
     },
     register: (username, email, password) => {
       dispatch(registerRequest(username, email, password));

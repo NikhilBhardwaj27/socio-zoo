@@ -71,9 +71,11 @@ function* userLogin(payload) {
 // User load call
 function* userLoad() {
   try {
+    console.log("aya e");
     const res = yield axios.get("/api/users/current_user");
     yield put({ type: USER_LOADED, payload: res.data });
   } catch (err) {
+    console.log("errpr");
     yield put({ type: AUTH_ERROR });
   }
 }

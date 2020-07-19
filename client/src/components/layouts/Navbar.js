@@ -4,7 +4,7 @@ import { Menu } from "antd";
 import { Link, Redirect } from "react-router-dom";
 import { LOGOUT } from "../../redux/actions/types";
 import "antd/dist/antd.css";
-import { Avatar } from 'antd';
+import { Avatar } from "antd";
 import {
   HomeOutlined,
   UserOutlined,
@@ -16,13 +16,14 @@ import {
 const { SubMenu } = Menu;
 
 const Navbar = () => {
-  let name="",avatar="";
-  const user = useSelector(state => state.auth.user)
+  let name = "",
+    avatar = "";
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
-  if(user){
-    name = user.username
-    avatar = user.avatar
+  if (user) {
+    name = user.username;
+    avatar = user.avatar;
   }
   return (
     <div>
@@ -41,16 +42,12 @@ const Navbar = () => {
           <Link to="/my-posts"> My Posts</Link>
         </Menu.Item>
         <Menu.Item key="users" icon={<TeamOutlined style={icon_size} />}>
-          Users
+          <Link to="/users">Users</Link>
         </Menu.Item>
         <SubMenu icon={<UserOutlined style={icon_size} />} title="Profile">
           <Menu.ItemGroup title="Sub Menu">
-            <Menu.Item
-              key="my-profile"
-              icon={
-                <Avatar src={avatar} />}
-            >
-              <Link to="/profile">{ " "+name}</Link>
+            <Menu.Item key="my-profile" icon={<Avatar src={avatar} />}>
+              <Link to="/profile">{" " + name}</Link>
             </Menu.Item>
             <Menu.Item key="logout" icon={<LogoutOutlined style={icon_size} />}>
               <Link

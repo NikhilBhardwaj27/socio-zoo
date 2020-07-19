@@ -2,7 +2,12 @@ import {
   GET_PROFILE_FAILED,
   GET_PROFILE_REQUEST,
   GET_PROFILE_SUCCESS,
+  GET_PROFILES_FAILED,
+  GET_PROFILES_SUCCESS,
   LOGOUT,
+  GET_PROFILES_REQUEST,
+  FOLLOW_REQUEST,
+  UNFOLLOW_REQUEST,
 } from "../actions/types";
 
 const initialState = {
@@ -10,6 +15,7 @@ const initialState = {
   profiles: [],
   errors: {},
   loading: false,
+  editProfile: false,
 };
 
 export const profileReducer = (state = initialState, action) => {
@@ -17,6 +23,7 @@ export const profileReducer = (state = initialState, action) => {
 
   switch (type) {
     case GET_PROFILE_REQUEST:
+    case GET_PROFILES_REQUEST:
       return {
         ...state,
         loading: true,
@@ -26,12 +33,21 @@ export const profileReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         profile: payload,
+        editProfile: true,
       };
-
-    case GET_PROFILE_FAILED:
+    case GET_PROFILES_SUCCESS:
       return {
         ...state,
         loading: false,
+        profiles: payload,
+      };
+
+    case GET_PROFILE_FAILED:
+    case GET_PROFILES_FAILED:
+      return {
+        ...state,
+        loading: false,
+        profile: null,
         errors: payload,
       };
     case LOGOUT:

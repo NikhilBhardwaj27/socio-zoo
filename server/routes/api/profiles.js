@@ -82,9 +82,7 @@ router.post(
     if (gender) profileDetails.gender = gender;
     if (age) profileDetails.age = age;
     if (hobbies) {
-      profileDetails.hobbies = hobbies
-        .split(",")
-        .map((hobbie) => hobbie.trim());
+      profileDetails.hobbies = hobbies;
     }
 
     // Building Social object
@@ -156,7 +154,7 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
-      let profile1 = await Profile.findOne({ user: req.params.id });
+      let profile1 = await Profile.findOne({ user: req.params.id })
       let profile2 = await Profile.findOne({ user: req.user.id });
 
       profile1.followers.push(req.user.id);
@@ -171,8 +169,13 @@ router.put(
         { user: req.params.id },
         { $set: profile1 },
         { new: true }
-      );
-      res.status(200).json({ message: "followed" });
+      )
+      const result = await Profile.findOne({ user: req.params.id })
+        .populate("user", ["username", "avatar"])
+        .populate("followers", ["username", "avatar"])
+        .populate("following", ["username", "avatar"])
+
+        res.status(200).json(result)
     } catch (error) {
       if (error.kind === "ObjectId") {
         return res.status(400).json({ message: "User not found" });
@@ -191,7 +194,7 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
-      let profile1 = await Profile.findOne({ user: req.params.id });
+      let profile1 = await Profile.findOne({ user: req.params.id })
       let profile2 = await Profile.findOne({ user: req.user.id });
 
       const filter1 = profile1.followers.filter((id) => id != req.user.id);
@@ -211,8 +214,14 @@ router.put(
         { $set: profile1 },
         { new: true }
       );
+        console.log(profile1)
+      const result = await Profile.findOne({ user: req.params.id })
+      .populate("user", ["username", "avatar"])
+      .populate("followers", ["username", "avatar"])
+      .populate("following", ["username", "avatar"])
 
-      res.status(200).json({ message: "Unfollowed" });
+      res.status(200).json(result)
+      
     } catch (error) {
       if (error.kind === "ObjectId") {
         return res.status(400).json({ message: "User not found" });
@@ -236,7 +245,7 @@ router.get(
         "avatar",
       ]);
       const result = profiles.filter(
-        (profile) => profile.user.id != req.user.id
+        (profile) => profile.user._id != req.user.id
       );
 
       res.status(200).json(result);

@@ -43,7 +43,7 @@ router.post(
     if (!req.file) {
       return res.status(400).json({ message: "Upload any picture" });
     }
-
+    
     try {
       const user = await User.findById(req.user.id).select("-password");
       const upload = await cloudinary.v2.uploader.upload(req.file.path, {
@@ -144,8 +144,8 @@ router.delete(
           .json({ message: "Not Authorized to delete the post" });
       }
       await cloudinary.v2.uploader.destroy(result.public_id);
-      await result.remove();
-      res.status(200).json({ message: "Post removed" });
+      const rem = await result.remove();
+      res.status(200).json(rem);
     } catch (error) {
       res.status(500).json(error);
     }
@@ -216,6 +216,7 @@ router.post(
   "/comment/:id",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+
     // Check validation for comments
     if (!req.body.text) {
       return res.status(400).json({ message: "Comment should not be empty" });
@@ -230,11 +231,12 @@ router.post(
         name: user.username,
         avatar: user.avatar,
         text: req.body.text,
-      };
+      }
+      
       post.comments.unshift(newComment);
-
       await post.save();
-      res.status(200).json(post.comments);
+
+      res.status(200).json(post)
     } catch (error) {
       res.status(500).json(error);
     }

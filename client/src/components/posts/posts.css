@@ -1,0 +1,79 @@
+.post-container {
+    display:flex;
+    display: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5% 5% 5% 5%;
+}
+
+.view-posts-top {
+    display: flex;
+    justify-content:flex-start;
+    font-size: 18px;
+    padding: 10px 10px 0px 10px;
+}
+
+.view-posts-middle {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.view-posts-bottom {
+    display: flex;
+    padding: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 30px;
+}
+
+.ant-card-body {
+    margin: 0;
+    padding: 0;
+}
+
+.time {
+    padding-left: 40px;
+    font-size: 10px;
+}
+
+.like,.comments {
+    display: flex;
+    flex-direction: column;
+    color:grey;
+    padding-right: 20px;
+}
+
+.upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3%;
+}
+
+.add-post-container {
+    display:flex;
+    display: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5% 20% 5% 20%;
+
+}
+
+
+@media only screen and (max-width: 550px) {
+    .react-reveal{
+        width: 100%;
+    }
+    .img-style {
+        height: 300px;
+    }
+}
+
+
+
+
+
+

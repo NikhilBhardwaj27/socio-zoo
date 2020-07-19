@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "antd/dist/antd.css";
 import "../auth/auth.css";
 import { Form, Input, Button } from "antd";
@@ -8,8 +8,10 @@ import { Card } from "antd";
 import Fade from "react-reveal/Fade";
 import { loginRequest } from "../../redux/actions/auth";
 import { connect } from "react-redux";
+import Loading from "../others/Loading";
 
 const Login = (props) => {
+  const { loading, isAuthenticated } = props.auth;
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -25,11 +27,13 @@ const Login = (props) => {
     props.login(email, password);
   };
 
-  if (props.state) {
+  if (isAuthenticated) {
     return <Redirect to="/home-screen"></Redirect>;
   }
 
-  return (
+  return loading ? (
+    <Loading></Loading>
+  ) : (
     <div className="parent-register">
       <div className="child-register">
         <Fade left>
@@ -42,6 +46,7 @@ const Login = (props) => {
           <Card
             title="Socio-Zoo"
             hoverable={true}
+            style={{ padding: "20px" }}
             bordered
             extra={
               <Link to="/">
@@ -121,7 +126,7 @@ const Login = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return { state: state.auth.isAuthenticated };
+  return { auth: state.auth };
 };
 
 const mapDispatchToProps = (dispatch) => {
