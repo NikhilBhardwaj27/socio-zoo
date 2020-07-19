@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-![alt text](https://drive.google.com/file/d/15TCZwhL4TzXe1J8zHtx97aOxzr2guEjg/view?usp=sharingg)
+![alt text](https://github.com/NikhilBhardwaj27/socio-zoo/blob/master/client/src/assets/architecture.docx)
 
 ## Available Scripts
 
