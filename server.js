@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const cors = require('cors')
+const path = require('path')
 const passport = require('passport')
 const app = express()
 
@@ -36,6 +37,17 @@ require('./server/config/passport')(passport)
 app.use('/api/posts',require('./server/routes/api/posts'))
 app.use('/api/profiles',require('./server/routes/api/profiles'))
 app.use('/api/users',require('./server/routes/api/users'))
+
+
+
+// If app is running in production then do this
+if(process.env.NODE_ENV === 'production'){
+    // set static folder
+    app.use(express.static('client/build'))
+    app.get('*',(req,res)=>{
+        res.sendFile(path.join(__dirname,'client','build','index.html'))
+    })
+}
 
 
 // Setting up PORT number
